@@ -1,9 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BarraDeVida.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Interface\InterfaceManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player.cs" Line="29" Column="36" />
-      <File FileName="Assets\Scripts\BarraDeVida.cs" Line="10" Column="7" />
+      <File FileName="Assets\Scripts\Interface\InterfaceManager.cs" Line="16" Column="31" />
+      <File FileName="Assets\Scripts\Gameplay\Character.cs" Line="22" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
