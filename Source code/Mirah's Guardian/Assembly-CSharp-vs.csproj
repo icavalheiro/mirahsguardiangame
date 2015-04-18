@@ -51,6 +51,7 @@
      <Compile Include="Assets\MapEditor\Scripts\Tile.cs" />
      <Compile Include="Assets\MapEditor\Scripts\TileObject.cs" />
      <Compile Include="Assets\Scripts\Gameplay\Character.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\MapManager.cs" />
      <Compile Include="Assets\Scripts\Interface\BarraDeVida.cs" />
      <Compile Include="Assets\Scripts\Interface\BotaoCena.cs" />
      <Compile Include="Assets\Scripts\Interface\BotaoSair.cs" />
