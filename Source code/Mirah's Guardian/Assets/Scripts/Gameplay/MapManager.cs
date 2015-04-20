@@ -97,6 +97,11 @@ public class MapManager : MonoBehaviour
 			onSpawningFinished();
 	}
 
+	public Vector2 GetPositionForEndPortal()
+	{
+		return map.GetTileObjectsByImageName ("cyan.png") [0].position;
+	}
+
 	public List<AStar.Node> GetPathableNodes()
 	{
 		return _pathableNodes;

@@ -29,17 +29,27 @@ public class GameplayManager : MonoBehaviour
 	
 	void Start()
 	{
-		var __iaWalkableNodes =  mapManager.GetPathableNodes();
-		//set path to mirah
-		Vector2 __startMirahsPosition = new Vector2(mirah.transform.position.x, mirah.transform.position.z);
-		Vector2 __finalMirahsPosition = mapManager.map.GetTileObjectsByImageName("cyan.png")[0].position;
-		AStar __mirahsPath = new AStar(__startMirahsPosition, __finalMirahsPosition, __iaWalkableNodes);
+		mirah.onReachPortal += () =>  EndGameSuccessfuly();
+		mirah.onDead += () => EndGameWithFail();
+		mirah.InformMapNodes (mapManager.GetPathableNodes ());
+		mirah.InformEndPortalPosition (mapManager.GetPositionForEndPortal ());
+		mirah.WalkToTheEndPortal ();
 
-		__mirahsPath.onPathProcessed += () =>
-		{			
-			mirah.SetPathToFollow(__mirahsPath);
+		guardian.onDead += () => EndGameWithFail ();
+		guardian.onMirahCalled += () =>
+		{
+			mirah.WalkToPosition(guardian.Get2DPosition());
 		};
-		StartCoroutine(__mirahsPath.ProcessPath());
+	}
+
+	private void EndGameSuccessfuly()
+	{
+		Debug.Log("Level completed");
+	}
+
+	private void EndGameWithFail()
+	{
+		Debug.Log ("Level failed!");
 	}
 
 	public static void RegisterCharacter(Character p_toRegister)
