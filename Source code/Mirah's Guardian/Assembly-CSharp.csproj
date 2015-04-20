@@ -46,10 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\MapEditor\Scripts\BilboardTile.cs" />
-     <Compile Include="Assets\MapEditor\Scripts\Map.cs" />
-     <Compile Include="Assets\MapEditor\Scripts\Tile.cs" />
-     <Compile Include="Assets\MapEditor\Scripts\TileObject.cs" />
+     <Compile Include="Assets\MapEditor\Plugin\Scripts\BilboardTile.cs" />
+     <Compile Include="Assets\MapEditor\Plugin\Scripts\Map.cs" />
+     <Compile Include="Assets\MapEditor\Plugin\Scripts\Tile.cs" />
+     <Compile Include="Assets\MapEditor\Plugin\Scripts\TileObject.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\AStar.cs" />
      <Compile Include="Assets\Scripts\Gameplay\Character.cs" />
      <Compile Include="Assets\Scripts\Gameplay\Enemy.cs" />
      <Compile Include="Assets\Scripts\Gameplay\GameplayManager.cs" />
@@ -62,6 +63,7 @@
      <Compile Include="Assets\Scripts\Interface\BotaoSom.cs" />
      <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
      <Compile Include="Assets\Scripts\Interface\Logotipos.cs" />
+     <Compile Include="Assets\Utilities\Console.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

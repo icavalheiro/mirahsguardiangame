@@ -26,6 +26,21 @@ public class GameplayManager : MonoBehaviour
 			mainCamera.transform.localPosition = __currentCameraPosition;
 		};
 	}
+	
+	void Start()
+	{
+		var __iaWalkableNodes =  mapManager.GetPathableNodes();
+		//set path to mirah
+		Vector2 __startMirahsPosition = new Vector2(mirah.transform.position.x, mirah.transform.position.z);
+		Vector2 __finalMirahsPosition = mapManager.map.GetTileObjectsByImageName("cyan.png")[0].position;
+		AStar __mirahsPath = new AStar(__startMirahsPosition, __finalMirahsPosition, __iaWalkableNodes);
+
+		__mirahsPath.onPathProcessed += () =>
+		{			
+			mirah.SetPathToFollow(__mirahsPath);
+		};
+		StartCoroutine(__mirahsPath.ProcessPath());
+	}
 
 	public static void RegisterCharacter(Character p_toRegister)
 	{
