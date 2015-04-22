@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
+[Serializable]
 public class AStar
 {
 	public class Node
@@ -28,6 +29,10 @@ public class AStar
 	private int _lastPointDelivered = -1;
 
 	public Action onPathProcessed;
+
+	public string tagName = "";
+
+	public bool isEndOfPath { get { return _lastPointDelivered >= (_pathToFollow.Count -1); } }
 
 	//dont forget to set up the node neigbours while creating the node list to use here
 	public AStar(Vector2 p_initial, Vector2 p_final, List<Node> p_nodes)
@@ -67,6 +72,7 @@ public class AStar
 				//set up node for algorithm
 				node.parent = null;
 				node.step = -1;
+				node.color = Color.blue;
 			}
 		}
 
@@ -108,6 +114,11 @@ public class AStar
 						_endNode.step = __lockedNodes.Count;
 						__lockedNodes.Add(_endNode);
 						__pathFound = true;
+						__currentNode.neighbours.ForEach(x =>
+						                                 {
+							if(__lockedNodes.Contains(x) == false)
+								x.color = Color.blue;
+						});
 						break;
 					}
 					
@@ -171,12 +182,11 @@ public class AStar
 		}
 	}
 
-
 	public Vector2 GetNextPoint()
 	{
 		_lastPointDelivered ++;
 
-		if(_lastPointDelivered >= _pathToFollow.Count)
+		if(isEndOfPath)
 			_lastPointDelivered = _pathToFollow.Count -1;
 
 		return _pathToFollow[_lastPointDelivered];
