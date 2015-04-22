@@ -14,9 +14,11 @@ public class Mirah : Character
 	private Vector2 _endPortalPosition;
 	private List<AStar.Node> _pathableNodes;
 	private bool _isWalkingToPortal = false;
+	private float _originalSpeed;
 
 	void Start()
 	{
+		_originalSpeed = this.speed;
 		_rigidbody = this.GetComponent<Rigidbody>();
 		_transform = this.GetComponent<Transform>();
 		_pointToMoveTo = _transform.position;
@@ -45,7 +47,7 @@ public class Mirah : Character
 			}
 			else
 			{
-				if(_isWalkingToPortal)
+				if(_isWalkingToPortal && Time.frameCount > 5)
 				{
 					if(onReachPortal != null)
 						onReachPortal();
@@ -73,15 +75,26 @@ public class Mirah : Character
 
 	public void WalkToTheEndPortal()
 	{
-		WalkToPosition (_endPortalPosition);
+		if(_originalSpeed != 0)
+			this.speed = _originalSpeed;
+
+		GoToPosition (_endPortalPosition);
 		_isWalkingToPortal = true;
 	}
 
-	public void WalkToPosition(Vector2 p_position)
+	public void GoToPosition(Vector2 p_position)
 	{
 		_isWalkingToPortal = false;
 		AStar __newPath = new AStar (this.Get2DPosition(), p_position, _pathableNodes);
 		__newPath.onPathProcessed += () => _pathToFolow = __newPath;
 		StartCoroutine (__newPath.ProcessPath ());
+	}
+
+	public void RunToPosition(Vector2 p_position)
+	{
+		if(_originalSpeed != 0)
+			this.speed = _originalSpeed * 3.543f;
+
+		GoToPosition (p_position);
 	}
 }

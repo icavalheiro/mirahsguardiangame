@@ -69,6 +69,7 @@ public class Map : MonoBehaviour
 					Tile __tile = _loadedTiles.Find(x => x.id == tileInScene.Value);
 
 					TileObject __tileObj = ((GameObject)GameObject.Instantiate(tilePrefab, tileInScene.Key.GetVector3(), tilePrefab.transform.rotation)).GetComponent<TileObject>();
+					__tileObj.transform.parent = this.transform;
 					__tileObj.Initialize(__tile);
 					_tilesInScene.Add(__tileObj);
 				}

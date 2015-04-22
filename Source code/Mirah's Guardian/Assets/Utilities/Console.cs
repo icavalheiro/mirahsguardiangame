@@ -110,6 +110,10 @@ public class Console : MonoBehaviour
 	private static List<string> _toLog = new List<string>();
 	#endregion
 
+	#region inspector
+	public bool muteSoundOnPlay = false;
+	#endregion
+
 	public static void ThreadLog(string p_string)
 	{
 		_toLog.Add(p_string);
@@ -141,6 +145,9 @@ public class Console : MonoBehaviour
 			GameObject.Destroy(_instance.gameObject);
 
 		_instance = this;
+
+		if (muteSoundOnPlay && Application.isEditor)
+			AudioListener.pause = true;
 
 		Application.logMessageReceived += (p_message, p_stackTrace, p_type) => 
 		{

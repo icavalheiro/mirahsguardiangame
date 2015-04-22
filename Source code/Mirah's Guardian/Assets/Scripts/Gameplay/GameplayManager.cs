@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -38,7 +38,7 @@ public class GameplayManager : MonoBehaviour
 		guardian.onDead += () => EndGameWithFail ();
 		guardian.onMirahCalled += () =>
 		{
-			mirah.WalkToPosition(guardian.Get2DPosition());
+			mirah.RunToPosition(guardian.Get2DPosition());
 		};
 	}
 
