@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InterfaceManager : MonoBehaviour 
+public class InterfaceManager : MonoBehaviour
 {
 	public bool paused = false;
 	public CanvasGroup gameInterface;

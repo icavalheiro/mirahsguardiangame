@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BotaoSom : MonoBehaviour {
 
-	public AudioListener caixaDeSom;
+	//public AudioListener caixaDeSom;
 
 	void Start () {
 	
@@ -15,13 +15,15 @@ public class BotaoSom : MonoBehaviour {
 
 	public void Clique () {
 		//Sistema de On/Off para mutar o audio do jogo.
-		switch(caixaDeSom.enabled)
+		switch(GameObject.Find("AudioManager").GetComponent<AudioListener>().enabled)
 		{
 			case true:
-				caixaDeSom.enabled = false;
+				GameObject.Find("AudioManager").GetComponent<AudioListener>().enabled = false;
+				//caixaDeSom.enabled = false;
 				break;
 			case false:
-				caixaDeSom.enabled = true;
+				GameObject.Find("AudioManager").GetComponent<AudioListener>().enabled = true;
+				//caixaDeSom.enabled = true;
 				break;
 		}
 		//-------------------------------------------
