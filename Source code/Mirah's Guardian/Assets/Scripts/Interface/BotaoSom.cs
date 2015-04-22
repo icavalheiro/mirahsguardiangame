@@ -15,17 +15,7 @@ public class BotaoSom : MonoBehaviour {
 
 	public void Clique () {
 		//Sistema de On/Off para mutar o audio do jogo.
-		switch(GameObject.Find("AudioManager").GetComponent<AudioListener>().enabled)
-		{
-			case true:
-				GameObject.Find("AudioManager").GetComponent<AudioListener>().enabled = false;
-				//caixaDeSom.enabled = false;
-				break;
-			case false:
-				GameObject.Find("AudioManager").GetComponent<AudioListener>().enabled = true;
-				//caixaDeSom.enabled = true;
-				break;
-		}
+		AudioListener.pause = !AudioListener.pause;
 		//-------------------------------------------
 	}
 }
