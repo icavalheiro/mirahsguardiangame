@@ -18,21 +18,14 @@ public class AStar
 
 		public Node()
 		{
-			//color = new Color(UnityEngine.Random.Range(0f,1.0001f), UnityEngine.Random.Range(0f, 1.00001f), UnityEngine.Random.Range(0f,1.0001f)); 
 			color = Color.blue;
 		}
 	}
 
-	private List<Vector2> _pathToFollow = new List<Vector2>();
 	private Node _startNode;
 	private Node _endNode;
-	private int _lastPointDelivered = -1;
 
-	public Action onPathProcessed;
-
-	public string tagName = "";
-
-	public bool isEndOfPath { get { return _lastPointDelivered >= (_pathToFollow.Count -1); } }
+	public Action<List<Vector2>> onPathProcessed;
 
 	//dont forget to set up the node neigbours while creating the node list to use here
 	public AStar(Vector2 p_initial, Vector2 p_final, List<Node> p_nodes)
@@ -85,7 +78,8 @@ public class AStar
 
 	public IEnumerator ProcessPath()
 	{
-		//float __secondsToWait = 0f;
+		bool __debugProcess = true;
+		float __secondsToWait = 0f;
 		yield return null;
 
 		//set up variables
@@ -102,7 +96,8 @@ public class AStar
 			{
 				__currentNode.color = Color.red;
 
-				//yield return new WaitForSeconds(__secondsToWait);
+				if(__debugProcess)
+					yield return new WaitForSeconds(__secondsToWait);
 
 				Node __closestNode = null;
 				float __lowestDistance = Mathf.Infinity;
@@ -121,7 +116,7 @@ public class AStar
 						});
 						break;
 					}
-					
+
 					if(__lockedNodes.Contains(neighbour))
 					{
 						if(neighbour.step < __currentNode.parent.step)
@@ -137,7 +132,8 @@ public class AStar
 							__closestNode = neighbour;
 						}
 
-						//yield return new WaitForSeconds(__secondsToWait);
+						if(__debugProcess)
+							yield return new WaitForSeconds(__secondsToWait);
 					}
 				}
 				
@@ -168,27 +164,18 @@ public class AStar
 			while(__currentNode.parent != null)
 			{
 				__currentNode.color = Color.black;
-				//yield return new WaitForSeconds(__secondsToWait);
+
+				if(__debugProcess)
+					yield return new WaitForSeconds(__secondsToWait);
+
 				__pathToFollow.Add(__currentNode.position);
 				__currentNode = __currentNode.parent;
 			}
 
-			this._pathToFollow = __pathToFollow;
-
-			_pathToFollow.Reverse();
+			__pathToFollow.Reverse();
 
 			if(onPathProcessed != null)
-				onPathProcessed();
+				onPathProcessed(__pathToFollow);
 		}
-	}
-
-	public Vector2 GetNextPoint()
-	{
-		_lastPointDelivered ++;
-
-		if(isEndOfPath)
-			_lastPointDelivered = _pathToFollow.Count -1;
-
-		return _pathToFollow[_lastPointDelivered];
 	}
 }

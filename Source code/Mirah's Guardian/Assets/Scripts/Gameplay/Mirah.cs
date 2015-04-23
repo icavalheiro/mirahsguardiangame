@@ -14,22 +14,22 @@ public class Mirah : Character
 
 	public event Action onReachPortal;
 
-	private AStar _pathToFolow;
 	private Rigidbody _rigidbody;
-	private Vector3 _pointToMoveTo;
 	private Transform _transform;
 	private Vector2 _endPortalPosition;
 	private List<AStar.Node> _pathableNodes;
 	private float _originalSpeed;
 	private bool _pauseMovement = false;
-
+	private List<Vector2> _pathToFollow;
+	private bool _isGoingToPortal = false;
+	private int _currentNode = 0;
+	private Coroutine _currentProcessingPath;
 
 	void Start()
 	{
 		_originalSpeed = this.speed;
 		_rigidbody = this.GetComponent<Rigidbody>();
 		_transform = this.GetComponent<Transform>();
-		_pointToMoveTo = _transform.position;
 	}
 
 	void Update()
@@ -39,44 +39,33 @@ public class Mirah : Character
 
 	private void FollowPathUpdate()
 	{
-		if(_pathToFolow != null && _pauseMovement == false)
+		if (_pathToFollow != null && _pauseMovement == false) 
 		{
-			var __distanceToPointToMove = Vector3.Distance(_transform.position, _pointToMoveTo);
-
-			if(__distanceToPointToMove < 0.1f)
+			var __distanceToCurrentNode = Vector3.Distance(_transform.position, new Vector3(_pathToFollow[_currentNode].x, 0 , _pathToFollow[_currentNode].y));
+			if(__distanceToCurrentNode < 0.1f)
 			{
-				if(_pathToFolow.isEndOfPath)
+				if((_currentNode +1) >= _pathToFollow.Count)
 				{
-					if(_pathToFolow.tagName == PathTagNames.WALKING_TO_PORTAL.ToString())
-					{
-						if(onReachPortal != null)
-							onReachPortal();
-						
-						_pauseMovement = true;
-					}
+					_pauseMovement = true;
+					_currentNode = 0;
+					_pathToFollow = null;
+
+					if(_isGoingToPortal)
+						onReachPortal();
 					else
 						WalkToTheEndPortal();
-					
+
 					return;
 				}
-				else
-				{
-					Vector2 __newPoint = _pathToFolow.GetNextPoint();
-					_pointToMoveTo = new Vector3(__newPoint.x, 0, __newPoint.y);
-				}
+
+				_currentNode ++;
 			}
-			
-			//make her move!
-			Vector3 __positionToBe = _transform.position + Vector3.Normalize( _pointToMoveTo - _transform.position);
+
+			Vector3 __pointoToMoveTo = new Vector3(_pathToFollow[_currentNode].x, 0 , _pathToFollow[_currentNode].y);
+			Vector3 __positionToBe = _transform.position + Vector3.Normalize( __pointoToMoveTo - _transform.position);
 			_rigidbody.MovePosition(Vector3.Lerp(_transform.position, __positionToBe, this.speed * Time.deltaTime));
 			_transform.LookAt(__positionToBe);
-			
 		}
-	}
-
-	public void SetPathToFollow(AStar p_path)
-	{
-		_pathToFolow = p_path;
 	}
 
 	public void InformEndPortalPosition(Vector2 p_position)
@@ -89,24 +78,35 @@ public class Mirah : Character
 		_pathableNodes = p_nodes;
 	}
 
+	private void GoToPosition(Vector2 p_position, string p_pathTagName)
+	{
+		_isGoingToPortal = false;
+		_pauseMovement = false;
+
+		if (_pathToFollow != null)
+			_pathToFollow = null;
+
+		if (_currentProcessingPath != null)
+			StopCoroutine (_currentProcessingPath);
+
+		AStar __newPath = new AStar (this.Get2DPosition(), p_position, _pathableNodes);
+		__newPath.onPathProcessed += (p_pathToFollow) => 
+		{
+			_currentNode = 0;
+			_pathToFollow = p_pathToFollow;
+			_currentProcessingPath = null;
+		};
+
+		_currentProcessingPath = StartCoroutine (__newPath.ProcessPath ());
+	}
+
 	public void WalkToTheEndPortal()
 	{
 		if(_originalSpeed != 0)
 			this.speed = _originalSpeed;
 
 		GoToPosition (_endPortalPosition, PathTagNames.WALKING_TO_PORTAL.ToString());
-	}
-
-	private void GoToPosition(Vector2 p_position, string p_pathTagName)
-	{
-		_pauseMovement = false;
-		AStar __newPath = new AStar (this.Get2DPosition(), p_position, _pathableNodes);
-		__newPath.tagName = p_pathTagName;
-		__newPath.onPathProcessed += () => 
-		{
-			_pathToFolow = __newPath;
-		};
-		StartCoroutine (__newPath.ProcessPath ());
+		_isGoingToPortal = true;
 	}
 
 	public void WalkToPosition(Vector2 p_position)
