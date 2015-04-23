@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -62,7 +62,7 @@ public class AStar
 					__endNode = node;
 				}
 
-				//set up node for algorithm
+				//set up node for algorithm 
 				node.parent = null;
 				node.step = -1;
 				node.color = Color.blue;
@@ -86,6 +86,7 @@ public class AStar
 		bool __pathFound = false;
 		{
 			List<Node> __lockedNodes = new List<Node>();
+			List<Node> __forcedNodes = new List<Node>();
 			_startNode.step = __lockedNodes.Count;
 			__lockedNodes.Add(_startNode);
 
@@ -119,10 +120,11 @@ public class AStar
 
 					if(__lockedNodes.Contains(neighbour))
 					{
-						if(neighbour.step < __currentNode.parent.step)
-							__currentNode.parent = neighbour;
+						if(__currentNode.parent != null)
+							if(neighbour.step < __currentNode.parent.step)
+								__currentNode.parent = neighbour;
 					}
-					else
+					else if (__forcedNodes.Contains(neighbour) == false)
 					{
 						neighbour.color = Color.yellow;
 						float __distance = Vector2.Distance(neighbour.position, _endNode.position);
@@ -136,23 +138,42 @@ public class AStar
 							yield return new WaitForSeconds(__secondsToWait);
 					}
 				}
-				
-				if(__closestNode == null)
-				{
-					__currentNode = __currentNode.parent;
-				}
-				else
+
+				Action __setUpNextNode = () =>
 				{
 					__closestNode.parent = __currentNode;
 					__closestNode.step = __lockedNodes.Count;
 					__lockedNodes.Add(__closestNode);
 					__currentNode.color = Color.white;
 					__currentNode.neighbours.ForEach(x =>
-					{
+					                                 {
 						if(__lockedNodes.Contains(x) == false)
 							x.color = Color.blue;
 					});
 					__currentNode = __closestNode;
+				};
+
+				if(__closestNode == null)
+				{
+					int __counter = 0;
+					while(__forcedNodes.Contains(__currentNode.neighbours[__counter]))
+						__counter ++;
+
+					if(__counter < __currentNode.neighbours.Count)
+					{
+						__closestNode = __currentNode.neighbours[__counter];
+						__setUpNextNode();
+					}
+					else
+					{
+						__currentNode.color = Color.white;
+						__currentNode.step = int.MaxValue;
+						__currentNode = __currentNode.parent;
+					}
+				}
+				else
+				{
+					__setUpNextNode();
 				}
 			}
 		}
