@@ -38,7 +38,8 @@ public class GameplayManager : MonoBehaviour
 		guardian.onDead += () => EndGameWithFail ();
 		guardian.onMirahCalled += () =>
 		{
-			mirah.RunToPosition(guardian.Get2DPosition());
+			if(Vector3.Distance(guardian.transform.position, mirah.transform.position) < 6)
+				mirah.RunToPosition(guardian.Get2DPosition());
 		};
 	}
 

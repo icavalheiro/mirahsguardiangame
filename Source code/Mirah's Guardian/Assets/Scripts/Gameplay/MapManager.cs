@@ -42,7 +42,7 @@ public class MapManager : MonoBehaviour
 		{
 			Gizmos.color = node.color;
 			Gizmos.DrawSphere(node.nodeTransform.position + Vector3.up, 0.1f);
-			TextGizmo.Instance.DrawText(node.nodeTransform.position + (Vector3.up * 1.5f), node.step.ToString());
+			//TextGizmo.Instance.DrawText(node.nodeTransform.position + (Vector3.up * 1.5f), node.step.ToString());
 
 			if(node.parent != null)
 				Gizmos.DrawLine(node.nodeTransform.position + Vector3.up, node.parent.nodeTransform.position + Vector3.up);

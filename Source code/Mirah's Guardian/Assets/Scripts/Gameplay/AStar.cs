@@ -78,7 +78,7 @@ public class AStar
 
 	public IEnumerator ProcessPath()
 	{
-		bool __debugProcess = true;
+		bool __debugProcess = false;
 		float __secondsToWait = 0f;
 		yield return null;
 
