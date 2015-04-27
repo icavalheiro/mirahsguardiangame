@@ -15,7 +15,7 @@ public class Character : MonoBehaviour
 	public Action onDead;
 
 	public Type type;
-	public float helthPoints = 3;
+	public float healthPoints = 3;
 	public float speed = 1;
 
 	void Awake()
@@ -25,7 +25,9 @@ public class Character : MonoBehaviour
 
 	void LateUpdate()
 	{
-		if (helthPoints <= 0)
+		if(Input.GetKeyDown("z"))
+			healthPoints -= 1;
+		if (healthPoints <= 0)
 		if (onDead != null)
 			onDead ();
 	}

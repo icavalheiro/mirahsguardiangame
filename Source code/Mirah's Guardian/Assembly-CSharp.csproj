@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\Gameplay\Mirah.cs" />
      <Compile Include="Assets\Scripts\Interface\AudioManager.cs" />
      <Compile Include="Assets\Scripts\Interface\BarraDeVida.cs" />
+     <Compile Include="Assets\Scripts\Interface\Billboard.cs" />
      <Compile Include="Assets\Scripts\Interface\BotaoCena.cs" />
      <Compile Include="Assets\Scripts\Interface\BotaoSair.cs" />
      <Compile Include="Assets\Scripts\Interface\BotaoSom.cs" />

@@ -1,22 +1,13 @@
-﻿//INCOMPLETO!!! Arrumo depois
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class BarraDeVida : MonoBehaviour {
 
-	public string nomeObjeto;
-	public GameObject SerVivo;
-    //public Vida vida;
-
-
 	void Start () {
-		//SerVivo = transform.Find (nomeObjeto);
-        //vida = Barra.GetComponent("Vida");
+
 	}
 	
 	void Update () {
-        //localScale = vida.life;
+		transform.localScale = new Vector3(GetComponentInParent<Character>().healthPoints/3, 1, 0);
 	}
 }
-//INCOMPLETO!!! Arrumo depois
