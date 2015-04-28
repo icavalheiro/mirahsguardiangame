@@ -12,11 +12,29 @@ public class Character : MonoBehaviour
 		ENEMY
 	}
 
-	public Action onDead;
 
+	#region public events
+	public Action onDead;
+	#endregion
+
+	#region public data
 	public Type type;
-	public float healthPoints = 3;
+	public float healthPoints 
+	{
+		get { return _healthPoints; }
+		set {
+			_healthPoints = value;
+			if (_healthPoints <= 0)
+			if (onDead != null)
+				onDead ();
+		}
+	}
 	public float speed = 1;
+	#endregion
+
+	#region private data
+	private float _healthPoints = 3;
+	#endregion
 
 	void Awake()
 	{
@@ -25,11 +43,9 @@ public class Character : MonoBehaviour
 
 	void LateUpdate()
 	{
+		//debuging only (lembre-se que isso vai ser executado em todos os character da cena (guardian, mirah, inimigos)
 		if(Input.GetKeyDown("z"))
 			healthPoints -= 1;
-		if (healthPoints <= 0)
-		if (onDead != null)
-			onDead ();
 	}
 
 	public Vector2 Get2DPosition()
