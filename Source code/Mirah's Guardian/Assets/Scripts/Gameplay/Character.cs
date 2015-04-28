@@ -22,11 +22,12 @@ public class Character : MonoBehaviour
 	public float healthPoints 
 	{
 		get { return _healthPoints; }
-		set {
+		set 
+		{
 			_healthPoints = value;
 			if (_healthPoints <= 0)
-			if (onDead != null)
-				onDead ();
+				if (onDead != null)
+					onDead ();
 		}
 	}
 	public float speed = 1;
