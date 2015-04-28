@@ -122,7 +122,8 @@ public class AStar
 					{
 						if(__currentNode.parent != null)
 							if(neighbour.step < __currentNode.parent.step)
-								__currentNode.parent = neighbour;
+								if(neighbour.parent != __currentNode)
+									__currentNode.parent = neighbour;
 					}
 					else if (__forcedNodes.Contains(neighbour) == false)
 					{

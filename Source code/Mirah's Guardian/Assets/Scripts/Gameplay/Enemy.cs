@@ -77,7 +77,6 @@ public class Enemy : Character
 			if(objCollider.gameObject.layer != LayerMask.NameToLayer("EnemyDetectable"))
 				continue;
 
-			Debug.Log(Time.time);
 			Transform __rootObj = objCollider.transform.root;
 			Mirah __mirahScript = __rootObj.GetComponent<Mirah>();
 			if(__mirahScript != null)
