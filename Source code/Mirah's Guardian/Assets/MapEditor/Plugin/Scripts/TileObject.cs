@@ -12,9 +12,6 @@ public class TileObject : MonoBehaviour
 	public MeshRenderer verticalRenderer;
 	public BilboardTile bilboardTile;
 	public Transform scaleManager;
-
-	public Material opaqueMaterial;
-	public Material transparentMaterial;
 	#endregion
 
 	public Tile tile;
@@ -36,20 +33,22 @@ public class TileObject : MonoBehaviour
 
 	private void SetUp()
 	{
-		groundRenderer.material = (tile.useTransparency) ? transparentMaterial : opaqueMaterial;
-		verticalRenderer.material = (tile.useTransparency) ? transparentMaterial : opaqueMaterial;
-		bilboardRenderer.material = (tile.useTransparency) ? transparentMaterial : opaqueMaterial;
+		Material __material = tile.GetMaterial();
+
+		groundRenderer.material = __material;
+		verticalRenderer.material = __material;
+		bilboardRenderer.material = __material;
 
 		groundCollider.enabled = tile.type == Tile.Type.GROUND;
 		characterCollider.enabled = tile.blockCharacter;
 		projectileCollider.enabled = tile.blockProjectile;
-		
+
 		groundRenderer.enabled = tile.type == Tile.Type.GROUND;
-		groundRenderer.material.mainTexture = (groundRenderer.enabled) ? tile.texture : null;
+		//groundRenderer.material.mainTexture = (groundRenderer.enabled) ? tile.texture : null;
 		bilboardRenderer.enabled = tile.type == Tile.Type.BILBOARD;
-		bilboardRenderer.material.mainTexture = (bilboardRenderer.enabled) ? tile.texture : null;
+		//bilboardRenderer.material.mainTexture = (bilboardRenderer.enabled) ? tile.texture : null;
 		verticalRenderer.enabled = tile.type == Tile.Type.VERTICAL;
-		verticalRenderer.material.mainTexture = (verticalRenderer.enabled) ? tile.texture : null;
+		//verticalRenderer.material.mainTexture = (verticalRenderer.enabled) ? tile.texture : null;
 		
 		scaleManager.localScale = new Vector3(tile.scaleX, tile.scaleY, 1);
 

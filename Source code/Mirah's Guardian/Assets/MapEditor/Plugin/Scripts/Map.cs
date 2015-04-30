@@ -70,9 +70,11 @@ public class Map : MonoBehaviour
 
 					TileObject __tileObj = ((GameObject)GameObject.Instantiate(tilePrefab, tileInScene.Key.GetVector3(), tilePrefab.transform.rotation)).GetComponent<TileObject>();
 					__tileObj.transform.parent = this.transform;
-					__tileObj.Initialize(__tile);
+					__tileObj.Initialize(__tile); 
 					_tilesInScene.Add(__tileObj);
 				}
+
+
 			}
 			catch(Exception p_exception)
 			{

@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\Interface\Logotipos.cs" />
      <Compile Include="Assets\Utilities\Console.cs" />
      <Compile Include="Assets\Utilities\TextGizmo.cs" />
+     <None Include="Assets\MapEditor\Resources\Shaders\Standard.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
