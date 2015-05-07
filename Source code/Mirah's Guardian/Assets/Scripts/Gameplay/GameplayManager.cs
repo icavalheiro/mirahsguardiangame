@@ -21,9 +21,6 @@ public class GameplayManager : MonoBehaviour
 
 		mapManager.onSpawningFinished += () =>  
 		{
-			if(guardian == null)
-				return;
-
 			Vector3 __currentCameraPosition = mainCamera.transform.position;
 			mainCamera.transform.parent = guardian.transform;
 			mainCamera.transform.localPosition = __currentCameraPosition;
@@ -32,24 +29,18 @@ public class GameplayManager : MonoBehaviour
 	
 	void Start()
 	{
-		if (mirah != null) 
-		{
-			mirah.onReachPortal += () => EndGameSuccessfuly ();
-			mirah.onDead += () => EndGameWithFail ();
-			mirah.InformMapNodes (mapManager.GetPathableNodes ());
-			mirah.InformEndPortalPosition (mapManager.GetPositionForEndPortal ());
-			mirah.WalkToTheEndPortal ();
-		}
+		mirah.onReachPortal += () =>  EndGameSuccessfuly();
+		mirah.onDead += () => EndGameWithFail();
+		mirah.InformMapNodes (mapManager.GetPathableNodes ());
+		mirah.InformEndPortalPosition (mapManager.GetPositionForEndPortal ());
+		mirah.WalkToTheEndPortal ();
 
-		if (guardian != null) 
+		guardian.onDead += () => EndGameWithFail ();
+		guardian.onMirahCalled += () =>
 		{
-			guardian.onDead += () => EndGameWithFail ();
-			guardian.onMirahCalled += () =>
-			{
-				if (Vector3.Distance (guardian.transform.position, mirah.transform.position) < 6)
-					mirah.RunToPosition (guardian.Get2DPosition ());
-			};
-		}
+			if(Vector3.Distance(guardian.transform.position, mirah.transform.position) < 6)
+				mirah.RunToPosition(guardian.Get2DPosition());
+		};
 	}
 
 	private void EndGameSuccessfuly()

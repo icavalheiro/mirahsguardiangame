@@ -17,15 +17,7 @@ public class Tile
 
 	[NonSerialized]
 	[System.Xml.Serialization.XmlIgnore]
-	private static Shader _basicShader;
-
-	[NonSerialized]
-	[System.Xml.Serialization.XmlIgnore]
 	public Texture2D texture;
-	
-	[NonSerialized]
-	[System.Xml.Serialization.XmlIgnore]
-	private Material _material;
 
 	[System.Xml.Serialization.XmlIgnore]
 	public float scaleX
@@ -60,8 +52,6 @@ public class Tile
 	public int id;
 	#endregion
 
-
-
 	public void OnChange()
 	{
 		if(onChange != null)
@@ -84,47 +74,5 @@ public class Tile
 		__toReturn.pathable = pathable;
 
 		return __toReturn;
-	}
-
-	private Shader GetShader()
-	{
-		if (_basicShader == null) 
-		{
-			_basicShader = Resources.Load("Shaders/Standard") as Shader;
-		}
-
-		return _basicShader;
-	}
-
-	public Material GetMaterial()
-	{
-		if(_material == null)
-		{
-			_material = new Material (GetShader());
-			_material.mainTexture = texture;
-
-			if(useTransparency)
-			{
-				_material.SetInt("_SrcBlend", 5);
-				_material.SetInt("_DstBlend", 10);
-				_material.SetInt("_ZWrite", 0);
-				_material.DisableKeyword("_ALPHATEST_ON");
-				_material.EnableKeyword("_ALPHABLEND_ON");
-				_material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-				_material.renderQueue = 3000;
-			}
-			else
-			{
-				_material.SetInt("_SrcBlend", 1);
-				_material.SetInt("_DstBlend", 0);
-				_material.SetInt("_ZWrite", 1);
-				_material.DisableKeyword("_ALPHATEST_ON");
-				_material.DisableKeyword("_ALPHABLEND_ON");
-				_material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-				_material.renderQueue = -1;
-			}
-		}
-
-		return _material;
 	}
 }
