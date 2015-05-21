@@ -20,6 +20,9 @@ public class Enemy : Character
 	private Transform _transform;
 	#endregion
 
+	public float timer = 0;
+	public GameObject tiro;
+
 	#region unity methods
 	void Awake()
 	{
@@ -53,7 +56,13 @@ public class Enemy : Character
 	{
 		if (_currentTarget == null) 
 			return;
-
+		if(timer > 6)
+		{
+			Instantiate(tiro, transform.position, transform.rotation);
+			timer = 0;
+		}
+		else
+			timer += 1* Time.deltaTime;
 		//_transform.LookAt (_currentTarget.transform.position);
 	}
 

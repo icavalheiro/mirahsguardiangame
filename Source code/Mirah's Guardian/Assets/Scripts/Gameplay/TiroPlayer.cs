@@ -15,7 +15,7 @@ public class TiroPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.Translate(2 * Vector3.forward * Time.deltaTime);
+		transform.Translate(3 * Vector3.forward * Time.deltaTime);
 	}
 
 	void OnTriggerEnter(Collider other) {
