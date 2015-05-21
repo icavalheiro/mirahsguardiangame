@@ -10,6 +10,9 @@ public class Guardian : Character
 
 	private Rigidbody _rigidbody;
 	private Transform _transform;
+	public CanvasGroup balaoInterface;
+	public float timer;
+	public GameObject tiro;
 
 	void Start()
 	{
@@ -30,5 +33,25 @@ public class Guardian : Character
 		float __verticalAxis = Input.GetAxis ("Vertical");
 		_rigidbody.MovePosition (_transform.position + ((new Vector3(__horizontalAxis, 0, __verticalAxis) * speed) * Time.deltaTime));
 
+		if(Input.GetKeyDown("b"))
+			BalaoPensamento(3);
+		
+		if(timer < 0)
+			balaoInterface.alpha = 0;
+		else
+			timer -= 1* Time.deltaTime;//multiplicar pelo tempo to sem tempo sai correndo
+
+		if (Input.GetButtonDown("Fire1"))
+		{
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(ray))
+				Instantiate(tiro, transform.position, transform.rotation);
+		}
+	}
+
+	public void BalaoPensamento(float tempo/*imagem variavel */)
+	{
+		balaoInterface.alpha = 1;
+		timer = tempo * Time.deltaTime;
 	}
 }

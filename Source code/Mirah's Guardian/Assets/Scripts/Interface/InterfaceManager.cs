@@ -11,6 +11,8 @@ public class InterfaceManager : MonoBehaviour
 	{
 		if(Input.GetKeyDown("escape"))
 			OnEscapePressed();
+
+
 	}
 
 	public void OnEscapePressed()
@@ -28,5 +30,6 @@ public class InterfaceManager : MonoBehaviour
 		p_canvas.blocksRaycasts = p_enable;
 		p_canvas.interactable = p_enable;
 	}
+
 
 }

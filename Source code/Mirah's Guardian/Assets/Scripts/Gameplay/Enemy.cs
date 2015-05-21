@@ -54,7 +54,7 @@ public class Enemy : Character
 		if (_currentTarget == null) 
 			return;
 
-		_transform.LookAt (_currentTarget.transform.position);
+		//_transform.LookAt (_currentTarget.transform.position);
 	}
 
 	private void ManageTarget()
