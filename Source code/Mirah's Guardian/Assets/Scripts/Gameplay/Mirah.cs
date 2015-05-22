@@ -24,6 +24,9 @@ public class Mirah : Character
 	private bool _isGoingToPortal = false;
 	private int _currentNode = 0;
 	private Coroutine _currentProcessingPath;
+	private bool _isDistracted = false;
+
+	public bool isDistracted { get { return _isDistracted; } }
 
 	void Start()
 	{
@@ -52,7 +55,7 @@ public class Mirah : Character
 
 					if(_isGoingToPortal)
 						onReachPortal();
-					else
+					else if(!_isDistracted)
 						WalkToTheEndPortal();
 
 					return;
@@ -80,6 +83,7 @@ public class Mirah : Character
 
 	private void GoToPosition(Vector2 p_position, string p_pathTagName)
 	{
+		_isDistracted = false;
 		_isGoingToPortal = false;
 		_pauseMovement = false;
 
@@ -100,8 +104,18 @@ public class Mirah : Character
 		_currentProcessingPath = StartCoroutine (__newPath.ProcessPath ());
 	}
 
+	public void SetDistraction(Vector3 p_where)
+	{
+		_isGoingToPortal = false;
+
+		RunToPosition(new Vector2(p_where.x, p_where.z));
+		_isDistracted = true;
+	}
+
 	public void WalkToTheEndPortal()
 	{
+		_isDistracted = false;
+
 		if(_originalSpeed != 0)
 			this.speed = _originalSpeed;
 
@@ -111,6 +125,8 @@ public class Mirah : Character
 
 	public void WalkToPosition(Vector2 p_position)
 	{
+		_isDistracted = false;
+
 		if (_originalSpeed != 0)
 			this.speed = _originalSpeed;
 
@@ -119,6 +135,8 @@ public class Mirah : Character
 
 	public void RunToPosition(Vector2 p_position)
 	{
+		_isDistracted = false;
+
 		if(_originalSpeed != 0)
 			this.speed = _originalSpeed * 3.543f;
 
