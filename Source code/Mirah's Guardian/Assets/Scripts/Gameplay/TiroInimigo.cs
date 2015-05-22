@@ -7,7 +7,7 @@ public class TiroInimigo : MonoBehaviour {
 	public GameObject Player;	
 	
 	void Start () {
-		transform.LookAt(Player.transform.position);
+		transform.LookAt(GameplayManager.GetMirah().transform.position + (Vector3.up * 0.2f));
 	}
 	
 	// Update is called once per frame
@@ -16,10 +16,12 @@ public class TiroInimigo : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider other) {
-		if(other.gameObject.tag == "Player")
+		if(other.transform.root.tag == "Player")
 		{
 			//Nao deu tempo pra arrumar
-			//Player.GetComponent<Character>().healthPoints
+			other.transform.root.gameObject.GetComponent<Guardian>().SetDamage(1);
+		//	Debug.Log ("Acertou!");
+			GameObject.Destroy(this.gameObject);
 		}
 	}
 }

@@ -49,6 +49,11 @@ public class Character : MonoBehaviour
 			healthPoints -= 1;
 	}
 
+	public void SetDamage(float p_damage)
+	{
+		healthPoints -= p_damage;
+	}
+
 	public Vector2 Get2DPosition()
 	{
 		return new Vector2(transform.position.x, transform.position.z);

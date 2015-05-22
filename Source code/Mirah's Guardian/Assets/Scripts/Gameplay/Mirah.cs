@@ -64,7 +64,7 @@ public class Mirah : Character
 			Vector3 __pointoToMoveTo = new Vector3(_pathToFollow[_currentNode].x, 0 , _pathToFollow[_currentNode].y);
 			Vector3 __positionToBe = _transform.position + Vector3.Normalize( __pointoToMoveTo - _transform.position);
 			_rigidbody.MovePosition(Vector3.Lerp(_transform.position, __positionToBe, this.speed * Time.deltaTime));
-			_transform.LookAt(__positionToBe);
+			//_transform.LookAt(__positionToBe);
 		}
 	}
 

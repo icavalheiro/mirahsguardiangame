@@ -50,7 +50,13 @@ public class GameplayManager : MonoBehaviour
 
 	private void EndGameWithFail()
 	{
-		Debug.Log ("Level failed!");
+		Debug.Log ("Level failed!"); 
+		Application.LoadLevel(2);
+	}
+
+	public static Mirah GetMirah()
+	{
+		return _singleton.mirah;
 	}
 
 	public static void RegisterCharacter(Character p_toRegister)

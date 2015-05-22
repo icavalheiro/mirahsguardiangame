@@ -17,7 +17,7 @@ public class Enemy : Character
 	private Vector3 _position;
 	private Mirah _currentTarget;
 	private Quaternion _originalRotation;
-	private Transform _transform;
+	//private Transform _transform;
 	#endregion
 
 	public float timer = 0;
@@ -33,7 +33,7 @@ public class Enemy : Character
 	{
 		_position = transform.position;
 		_originalRotation = transform.rotation;
-		_transform = this.transform;
+		//_transform = this.transform;
 	}
 
 	void OnDrawGizmosSelected ()
@@ -56,13 +56,13 @@ public class Enemy : Character
 	{
 		if (_currentTarget == null) 
 			return;
-		if(timer > 6)
+		if(timer > 1)
 		{
 			Instantiate(tiro, transform.position, transform.rotation);
 			timer = 0;
 		}
 		else
-			timer += 1* Time.deltaTime;
+			timer += Time.deltaTime;
 		//_transform.LookAt (_currentTarget.transform.position);
 	}
 
