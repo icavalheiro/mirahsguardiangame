@@ -18,9 +18,13 @@ public class TiroInimigo : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if(other.transform.root.tag == "Player")
 		{
-			//Nao deu tempo pra arrumar
+
 			other.transform.root.gameObject.GetComponent<Guardian>().SetDamage(1);
 		//	Debug.Log ("Acertou!");
+			GameObject.Destroy(this.gameObject);
+		}
+		if(other.transform.tag == "Shield")
+		{
 			GameObject.Destroy(this.gameObject);
 		}
 	}

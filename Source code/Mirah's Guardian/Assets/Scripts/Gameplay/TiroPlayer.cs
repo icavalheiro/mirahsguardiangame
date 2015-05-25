@@ -29,6 +29,7 @@ public class TiroPlayer : MonoBehaviour {
 		if(other.gameObject.tag == "Enemy")
 		{
 			Destroy(other.gameObject);
+			GameObject.Destroy(this.gameObject);
 		}
 	}
 }
