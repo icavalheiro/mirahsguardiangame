@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\Gameplay\Guardian.cs" />
      <Compile Include="Assets\Scripts\Gameplay\MapManager.cs" />
      <Compile Include="Assets\Scripts\Gameplay\Mirah.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Score.cs" />
      <Compile Include="Assets\Scripts\Gameplay\Shield.cs" />
      <Compile Include="Assets\Scripts\Gameplay\TiroInimigo.cs" />
      <Compile Include="Assets\Scripts\Gameplay\TiroPlayer.cs" />

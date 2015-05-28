@@ -16,11 +16,22 @@ public class Guardian : Character
 	public GameObject shield;
 	public float __horizontalAxis = 0;
 	public float __verticalAxis = 0;
+	public int municao = 3;
 
 	void Start()
 	{
 		_transform = this.GetComponent<Transform> ();
 		_rigidbody = this.GetComponent<Rigidbody> ();
+
+		switch(Application.loadedLevel)
+		{
+			case 0: //Primeira fase
+				municao = 3;
+				break;
+			case 1:
+				municao = 2;
+				break;
+		}
 	}
 
 
@@ -49,9 +60,13 @@ public class Guardian : Character
 
 		if (Input.GetButtonDown("Fire1"))
 		{
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			if (Physics.Raycast(ray))
-				Instantiate(tiro, transform.position, transform.rotation);
+			if(municao > 0)
+			{
+				municao--;
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				if (Physics.Raycast(ray))
+					Instantiate(tiro, transform.position, transform.rotation);
+			}
 		}
 
 		if(Input.GetButtonDown("Fire2"))
