@@ -45,7 +45,7 @@ public class GameplayManager : MonoBehaviour
 
 	private void EndGameSuccessfuly()
 	{
-		Debug.Log("Level completed");
+		Application.LoadLevel(Application.loadedLevel+1);
 	}
 
 	private void EndGameWithFail()
