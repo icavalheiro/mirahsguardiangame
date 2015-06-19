@@ -16,6 +16,10 @@ public class TiroInimigo : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider other) {
+		if(other.transform.root.tag == "Mirah")
+		{
+			other.transform.root.gameObject.GetComponent<Mirah>().SetDamage(3);
+		}
 		if(other.transform.root.tag == "Player")
 		{
 
