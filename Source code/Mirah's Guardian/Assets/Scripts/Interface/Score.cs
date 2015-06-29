@@ -14,6 +14,6 @@ public class Score : MonoBehaviour {
 	
 	void Update () {
 		numero = GameManager.GetComponent<GameplayManager>().guardian.municao;
-		score.text = "Ammo " + numero;
+		score.text = "       : " + numero;
 	}
 }
