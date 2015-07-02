@@ -18,6 +18,9 @@ public class Guardian : Character
 	public float __verticalAxis = 0;
 	public int municao = 3;
 	public AudioSource assovio;
+	public SpriteAnimator spriteAnimator;
+	public SpriteRenderer renderer;
+
 
 	void Start()
 	{
@@ -33,6 +36,8 @@ public class Guardian : Character
 				municao = 2;
 				break;
 		}
+
+		spriteAnimator.SetRenderer (renderer);
 	}
 
 
@@ -75,6 +80,8 @@ public class Guardian : Character
 		{
 			Instantiate(shield, transform.position+ new Vector3(__horizontalAxis,1,__verticalAxis), transform.rotation);
 		}
+
+		spriteAnimator.Update ();
 	}
 
 	public void BalaoPensamento(float tempo/*imagem variavel */)
