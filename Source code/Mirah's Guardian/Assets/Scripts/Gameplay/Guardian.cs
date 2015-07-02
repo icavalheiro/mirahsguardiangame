@@ -17,6 +17,7 @@ public class Guardian : Character
 	public float __horizontalAxis = 0;
 	public float __verticalAxis = 0;
 	public int municao = 3;
+	public AudioSource assovio;
 
 	void Start()
 	{
@@ -39,6 +40,7 @@ public class Guardian : Character
 	{
 		if(Input.GetKeyDown(keyToCallMirah))
 		{
+			assovio.Play();
 			if(onMirahCalled != null)
 				onMirahCalled();
 		}

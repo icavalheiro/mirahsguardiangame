@@ -4,7 +4,7 @@ using System.Collections;
 public class TiroPlayer : MonoBehaviour {
 
 	//public Vector3 Ponto = (0,camera.main.nearClipPlane,0);
-
+	//public AudioSource soundArrow;
 	
 	void Start () {
 		//Vector3 mouse_pos_on_world = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -18,6 +18,8 @@ public class TiroPlayer : MonoBehaviour {
 		Vector3 __updatedPosition = __ray.origin + (((-__ray.origin.y)/__ray.direction.y) * __ray.direction);
 
 		this.transform.LookAt(__updatedPosition + (Vector3.up * 0.2f));
+
+		//soundArrow.Play();
 	}
 	
 	// Update is called once per frame

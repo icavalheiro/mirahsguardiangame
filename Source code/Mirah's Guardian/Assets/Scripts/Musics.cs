@@ -15,6 +15,7 @@ public class Musics : MonoBehaviour {
 		}
 		else
 		{
+			ostMenu.Pause();
 			ostInGame.Play();
 			//ostInGame.loop() = true;
 		}
