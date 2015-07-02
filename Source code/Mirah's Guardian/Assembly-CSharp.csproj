@@ -70,6 +70,7 @@
      <Compile Include="Assets\Scripts\Interface\InterfaceManager.cs" />
      <Compile Include="Assets\Scripts\Interface\Logotipos.cs" />
      <Compile Include="Assets\Scripts\Interface\Score.cs" />
+     <Compile Include="Assets\Scripts\Musics.cs" />
      <Compile Include="Assets\Utilities\Console.cs" />
      <Compile Include="Assets\Utilities\TextGizmo.cs" />
  <Reference Include="UnityEngine.UI">
