@@ -20,6 +20,7 @@ public class Guardian : Character
 	public AudioSource assovio;
 	public SpriteAnimator spriteAnimator;
 	public SpriteRenderer renderer;
+	private bool stopSpriteUpdate = false;
 
 
 	void Start()
@@ -55,6 +56,32 @@ public class Guardian : Character
 			__horizontalAxis = Input.GetAxis ("Horizontal");
 			__verticalAxis = Input.GetAxis ("Vertical");
 			_rigidbody.MovePosition (_transform.position + ((new Vector3(__horizontalAxis, 0, __verticalAxis) * speed) * Time.deltaTime));
+			if(__horizontalAxis < 0)
+			{//4
+				spriteAnimator.PlayAnimation(5);
+				renderer.transform.eulerAngles = new Vector3(renderer.transform.eulerAngles.x, 180, renderer.transform.eulerAngles.z);
+				stopSpriteUpdate = false;
+			}
+			else if (__horizontalAxis > 0)
+			{
+				spriteAnimator.PlayAnimation(5);
+				renderer.transform.eulerAngles = new Vector3(renderer.transform.eulerAngles.x, 0, renderer.transform.eulerAngles.z);
+				stopSpriteUpdate = false;
+			}
+			else if (__verticalAxis < 0)
+			{//5
+				spriteAnimator.PlayAnimation(4);
+				stopSpriteUpdate = false;
+			}
+			else if (__verticalAxis > 0)
+			{
+				spriteAnimator.PlayAnimation(3);
+				stopSpriteUpdate = false;
+			}
+			else
+			{
+				stopSpriteUpdate = true;
+			}
 		}
 
 		if(Input.GetKeyDown("b"))
@@ -81,7 +108,10 @@ public class Guardian : Character
 			Instantiate(shield, transform.position+ new Vector3(__horizontalAxis,1,__verticalAxis), transform.rotation);
 		}
 
-		spriteAnimator.Update ();
+		if(stopSpriteUpdate == false)
+		{
+			spriteAnimator.Update ();
+		}
 	}
 
 	public void BalaoPensamento(float tempo/*imagem variavel */)
