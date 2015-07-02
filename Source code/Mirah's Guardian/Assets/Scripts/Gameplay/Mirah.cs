@@ -25,19 +25,30 @@ public class Mirah : Character
 	private int _currentNode = 0;
 	private Coroutine _currentProcessingPath;
 	private bool _isDistracted = false;
+	public SpriteAnimator spriteAnimator;
+	public SpriteRenderer renderer;
+	private Vector3 _lastFramePosition;
 
 	public bool isDistracted { get { return _isDistracted; } }
 
 	void Start()
 	{
+		_lastFramePosition = this.transform.position;
 		_originalSpeed = this.speed;
 		_rigidbody = this.GetComponent<Rigidbody>();
 		_transform = this.GetComponent<Transform>();
+		spriteAnimator.SetRenderer (renderer);
 	}
 
 	void Update()
 	{
 		FollowPathUpdate ();
+		Vector3 __direction = this.transform.position - _lastFramePosition;
+		_lastFramePosition = this.transform.position;
+
+		Debug.Log (__direction);
+
+		spriteAnimator.Update ();
 	}
 
 	private void FollowPathUpdate()
